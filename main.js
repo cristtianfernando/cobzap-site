@@ -213,4 +213,12 @@ document.addEventListener('DOMContentLoaded', () => {
         input?.addEventListener('change', calcular);
     });
     calcular();
+
+    // Atalho Ctrl+M para fechar o gate
+    document.addEventListener('keydown', (event) => {
+        if (event.ctrlKey && event.key.toLowerCase() === 'm') {
+            event.preventDefault(); // Previne comportamento padrão se houver
+            toggleGate(false);
+        }
+    });
 });
