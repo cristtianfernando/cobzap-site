@@ -214,10 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     calcular();
 
-    // Atalho Ctrl+M para fechar o gate
+    // Atalho Esc para fechar o gate
     document.addEventListener('keydown', (event) => {
-        if (event.ctrlKey && event.key.toLowerCase() === 'm') {
-            event.preventDefault(); // Previne comportamento padrão se houver
+        if (event.key === 'Escape') {
+            event.preventDefault();
             toggleGate(false);
         }
     });
