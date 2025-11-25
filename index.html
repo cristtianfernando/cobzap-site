@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CobZap | Cobrança inteligente no WhatsApp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="brand">
+                <span class="icon-dot"></span>
+                <span class="brand-name">CobZap</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#hero">Início</a>
+                <a href="#features">Funcionalidades</a>
+                <a href="#how-it-works">Fluxo</a>
+                <a href="#pricing">Planos</a>
+            </nav>
+            <div class="nav-actions">
+                <a class="ghost-btn" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Falar com especialista</a>
+                <a id="open-modal" class="solid-btn" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Quero testar agora</a>
+            </div>
+        </div>
+    </header>
+
+    <div id="gate-overlay" class="gate-overlay">
+        <div class="gate-card">
+            <div class="gate-head">
+                <p class="eyebrow">Antes de acessar</p>
+                <h2>Preencha os dados para continuar</h2>
+                <p class="muted">Usaremos essas informações para personalizar sua experiência.</p>
+            </div>
+            <form id="gate-form" class="form-grid" novalidate>
+                <div class="form-field">
+                    <label for="gate-nome">Qual é seu nome? <span>*</span></label>
+                    <input type="text" id="gate-nome" name="nome" placeholder="Ex: Ana Souza" required>
+                    <small data-error-for="gate-nome"></small>
+                </div>
+                <div class="form-field">
+                    <label for="gate-telefone">Qual é seu telefone/WhatsApp? <span>*</span></label>
+                    <input type="tel" id="gate-telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                    <small data-error-for="gate-telefone"></small>
+                </div>
+                <div class="form-field">
+                    <label for="gate-email">Qual é seu e-mail? <span>*</span></label>
+                    <input type="email" id="gate-email" name="email" placeholder="email@empresa.com" required>
+                    <small data-error-for="gate-email"></small>
+                </div>
+                <div class="form-field">
+                    <label for="gate-cargo">Qual é seu cargo? <span>*</span></label>
+                    <select id="gate-cargo" name="cargo" required>
+                        <option value="">Selecione</option>
+                        <option value="Sócio Proprietário">Sócio Proprietário</option>
+                        <option value="Diretor">Diretor</option>
+                        <option value="Superintendente">Superintendente</option>
+                        <option value="Gerente">Gerente</option>
+                        <option value="Coordenador">Coordenador</option>
+                        <option value="Supervisor">Supervisor</option>
+                        <option value="Analista">Analista</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                    <small data-error-for="gate-cargo"></small>
+                </div>
+                <div class="form-field">
+                    <label for="gate-time">Qual é o tamanho do seu time? <span>*</span></label>
+                    <select id="gate-time" name="tamanho-time" required>
+                        <option value="">Selecione</option>
+                        <option value="1 a 5">De 1 a 5</option>
+                        <option value="5 a 10">De 5 a 10</option>
+                        <option value="10 a 20">De 10 a 20</option>
+                        <option value="20 a 50">De 20 a 50</option>
+                        <option value="50 a 100">De 50 a 100</option>
+                        <option value="100+">Acima de 100</option>
+                    </select>
+                    <small data-error-for="gate-time"></small>
+                </div>
+                <div id="gate-feedback" class="feedback" role="status" aria-live="polite"></div>
+                <div class="form-actions">
+                    <button type="submit" class="solid-btn full">Acessar página</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <div class="pill">WhatsApp para cobrança · Pronto para uso</div>
+                    <h1>Converse, negocie e recupere dívidas em uma única experiência.</h1>
+                    <p>Automatize cadência, centralize conversas e veja a performance em tempo real. Sem filas, sem burocracia, apenas resultados.</p>
+                <div class="cta-row">
+                    <a class="solid-btn" id="open-modal-hero" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Quero testar agora</a>
+                    <a class="ghost-btn" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Falar com especialista</a>
+                </div>
+                    <div class="hero-stats">
+                        <div>
+                            <span class="stat-number">+30%</span>
+                            <span class="stat-label">Recuperação média</span>
+                        </div>
+                        <div>
+                            <span class="stat-number">75%</span>
+                            <span class="stat-label">Tempo de cobrança menor</span>
+                        </div>
+                        <div>
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Operação ativa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-panel">
+                    <div class="panel-header">
+                        <span class="dot green"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot red"></span>
+                        <span>Fluxo visual</span>
+                    </div>
+                    <img src="dashboard.png" alt="Dashboard CobZap" loading="lazy">
+                    <div class="panel-footer">
+                        <div class="badge success">Sem bloqueios</div>
+                        <div class="badge outline">Mensagens ilimitadas</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">O que você leva</p>
+                    <h2>Ferramentas para cobrar sem esforço.</h2>
+                    <p class="lead">Configure automações, templates e jornadas com poucos cliques.</p>
+                    <div class="cta-row">
+                        <a class="solid-btn" id="open-modal-features" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Quero testar agora</a>
+                        <a class="ghost-btn" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Falar com especialista</a>
+                    </div>
+                </div>
+                <div class="card-grid">
+                    <article class="card">
+                        <div class="card-icon"><i class="fas fa-robot"></i></div>
+                        <h3>Cadências inteligentes</h3>
+                        <p>Envios automáticos baseados em tempo, resposta e valor devido.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon"><i class="fas fa-comments"></i></div>
+                        <h3>Templates prontos</h3>
+                        <p>Modelos aprovados que reduzem objeções e aceleram acordos.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Monitoramento em tempo real</h3>
+                        <p>Taxas de resposta, tickets abertos e acordos em uma só visão.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon"><i class="fas fa-plug"></i></div>
+                        <h3>Integração fácil</h3>
+                        <p>Webhook, API e importação rápida via planilha.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="section inverted">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Fluxo</p>
+                    <h2>Do lead à negociação em três passos.</h2>
+                    <div class="cta-row">
+                        <a class="solid-btn" id="open-modal-flow" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Quero testar agora</a>
+                        <a class="ghost-btn" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Falar com especialista</a>
+                    </div>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <span class="step-index">1</span>
+                        <h3>Captar</h3>
+                        <p>Coletamos dados essenciais em segundos e já validamos o contato.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Formulário com validação</li>
+                            <li><i class="fas fa-check"></i>Leads salvos no navegador</li>
+                            <li><i class="fas fa-check"></i>Pronto para exportar</li>
+                        </ul>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-index">2</span>
+                        <h3>Automatizar</h3>
+                        <p>Defina templates, horários e regra de follow-up.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Mensagens sequenciais</li>
+                            <li><i class="fas fa-check"></i>Alertas de resposta</li>
+                            <li><i class="fas fa-check"></i>Gatilhos de valor</li>
+                        </ul>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-index">3</span>
+                        <h3>Negociar</h3>
+                        <p>Converse, negocie e finalize sem sair do fluxo.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Histórico organizado</li>
+                            <li><i class="fas fa-check"></i>Indicadores de sucesso</li>
+                            <li><i class="fas fa-check"></i>Exportação rápida</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="section inverted">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Planos</p>
+                    <h2>Cresça com o volume do seu time.</h2>
+                    <div class="cta-row">
+                        <a class="solid-btn" id="open-modal-pricing" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Quero testar agora</a>
+                        <a class="ghost-btn" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Falar com especialista</a>
+                    </div>
+                </div>
+                <div class="pricing-carousel">
+                    <button class="carousel-btn prev" aria-label="Plano anterior"><i class="fas fa-chevron-left"></i></button>
+                    <div class="pricing-track" id="pricing-track">
+                        <div class="pricing-card">
+                            <p class="eyebrow">Essencial</p>
+                            <h3>R$97,00 <span>/usuário/mês</span></h3>
+                            <p>1 a 4 usuários</p>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Custo número WhatsApp Web: R$47/mês</li>
+                                <li><i class="fas fa-check"></i> Custo número Oficial Meta: R$97/mês</li>
+                                <li><i class="fas fa-check"></i> Custo conversa (24h): R$0,12</li>
+                                <li><i class="fas fa-check"></i> Marketing por mensagem: R$0,47</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-card featured">
+                            <span class="plan-badge">Mais escolhido</span>
+                            <p class="eyebrow">Padrão</p>
+                            <h3>R$87,00 <span>/usuário/mês</span></h3>
+                            <p>5 a 10 usuários</p>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Custo número WhatsApp Web: R$47/mês</li>
+                                <li><i class="fas fa-check"></i> Custo número Oficial Meta: R$97/mês</li>
+                                <li><i class="fas fa-check"></i> Custo conversa (24h): R$0,12</li>
+                                <li><i class="fas fa-check"></i> Marketing por mensagem: R$0,47</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-card">
+                            <p class="eyebrow">Profissional</p>
+                            <h3>R$77,00 <span>/usuário/mês</span></h3>
+                            <p>11 a 20 usuários</p>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Custo número WhatsApp Web: R$47/mês</li>
+                                <li><i class="fas fa-check"></i> Custo número Oficial Meta: R$97/mês</li>
+                                <li><i class="fas fa-check"></i> Custo conversa (24h): R$0,12</li>
+                                <li><i class="fas fa-check"></i> Marketing por mensagem: R$0,47</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-card">
+                            <p class="eyebrow">Avançado</p>
+                            <h3>R$67,00 <span>/usuário/mês</span></h3>
+                            <p>21 a 50 usuários</p>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Custo número WhatsApp Web: R$47/mês</li>
+                                <li><i class="fas fa-check"></i> Custo número Oficial Meta: R$97/mês</li>
+                                <li><i class="fas fa-check"></i> Custo conversa (24h): R$0,12</li>
+                                <li><i class="fas fa-check"></i> Marketing por mensagem: R$0,47</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-card">
+                            <p class="eyebrow">Business</p>
+                            <h3>R$57,00 <span>/usuário/mês</span></h3>
+                            <p>51 a 100 usuários</p>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Custo número WhatsApp Web: R$47/mês</li>
+                                <li><i class="fas fa-check"></i> Custo número Oficial Meta: R$97/mês</li>
+                                <li><i class="fas fa-check"></i> Custo conversa (24h): R$0,12</li>
+                                <li><i class="fas fa-check"></i> Marketing por mensagem: R$0,47</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-card">
+                            <p class="eyebrow">Corporativo</p>
+                            <h3>R$47,00 <span>/usuário/mês</span></h3>
+                            <p>101+ usuários</p>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Custo número WhatsApp Web: R$47/mês</li>
+                                <li><i class="fas fa-check"></i> Custo número Oficial Meta: R$97/mês</li>
+                                <li><i class="fas fa-check"></i> Custo conversa (24h): R$0,12</li>
+                                <li><i class="fas fa-check"></i> Marketing por mensagem: R$0,47</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="carousel-btn next" aria-label="Próximo plano"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="simulador" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Simulador</p>
+                    <h2>Calcule seu custo mensal</h2>
+                    <p class="lead">Informe usuários, números e volume de mensagens para ver o valor estimado.</p>
+                    <div class="cta-row">
+                        <a class="solid-btn" id="open-modal-sim" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Quero testar agora</a>
+                        <a class="ghost-btn" href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Falar com especialista</a>
+                    </div>
+                </div>
+                <div class="sim-grid">
+                    <div class="sim-card">
+                        <div class="form-field">
+                            <label for="sim-usuarios">Quantidade de usuários</label>
+                            <input type="number" id="sim-usuarios" min="1" value="5">
+                        </div>
+                        <div class="form-field">
+                            <label for="sim-web">Números WhatsApp Web</label>
+                            <input type="number" id="sim-web" min="0" value="1">
+                        </div>
+                        <div class="form-field">
+                            <label for="sim-oficial">Números API Oficial</label>
+                            <input type="number" id="sim-oficial" min="0" value="0">
+                        </div>
+                        <div class="form-field">
+                            <label for="sim-volume">Volume de mensagens</label>
+                            <input type="number" id="sim-volume" min="0" value="1000">
+                        </div>
+                        <div class="form-field">
+                            <label for="sim-tipo">Tipo de mensagem</label>
+                            <select id="sim-tipo">
+                                <option value="utilidade">Utilidade (conversa 24h)</option>
+                                <option value="marketing">Marketing</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sim-card result-card">
+                        <div class="sim-row">
+                            <span>Plano estimado</span>
+                            <strong id="sim-plano">—</strong>
+                        </div>
+                        <div class="sim-row">
+                            <span>Licenças</span>
+                            <strong id="sim-licencas">R$ 0,00</strong>
+                        </div>
+                        <div class="sim-row">
+                            <span>Números WhatsApp Web</span>
+                            <strong id="sim-custo-web">R$ 0,00</strong>
+                        </div>
+                        <div class="sim-row">
+                            <span>Números API Oficial</span>
+                            <strong id="sim-custo-oficial">R$ 0,00</strong>
+                        </div>
+                        <div class="sim-row">
+                            <span>Custo mensagens</span>
+                            <strong id="sim-custo-msg">R$ 0,00</strong>
+                        </div>
+                        <div class="sim-total">
+                            <span>Total mensal</span>
+                            <strong id="sim-total">R$ 0,00</strong>
+                        </div>
+                        <p class="muted sim-note">Valores estimados com base na tabela de planos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">FAQ</p>
+                    <h2>Perguntas frequentes</h2>
+                </div>
+                <div class="faq-grid">
+                    <article class="faq-item">
+                        <h3>É compatível com meu sistema atual?</h3>
+                        <p>Sim, você pode integrar via API ou importar/exportar planilhas.</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3>Posso testar sem custo?</h3>
+                        <p>Sim, ative o teste de 7 dias e rode tudo pelo navegador.</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3>Muitas mensagens geram bloqueio?</h3>
+                        <p>Usamos cadência e métricas para reduzir spam e manter sua operação ativa.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="brand">
+                    <span class="icon-dot"></span>
+                    <span class="brand-name">CobZap</span>
+                </div>
+                <p class="muted">Sistema de WhatsApp inteligente para cobrança.</p>
+            </div>
+            <div>
+                <h4>Links</h4>
+                <a href="#features">Funcionalidades</a>
+                <a href="#painel">Leads</a>
+                <a href="#pricing">Planos</a>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <a href="mailto:contato@cfsoluttions.com">contato@cfsoluttions.com</a>
+                <a href="tel:+5541995491030">WhatsApp: (41) 99549-1030</a>
+            </div>
+            <div>
+                <h4>Social</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <span>© 2024 CobZap. Todos os direitos reservados.</span>
+            <div class="legal">
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
