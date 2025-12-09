@@ -7,7 +7,7 @@
     <title>CobZap | Cobrança inteligente no WhatsApp</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -17,23 +17,16 @@
         <div class="container">
             <div class="brand">
                 <a href="index.html" aria-label="Voltar para a página inicial">
-                    <img src="logo.png" alt="CobZap Logo" style="height: 80px;">
+                    <img src="logo.png" alt="CobZap Logo" style="height: 50px;">
                 </a>
             </div>
             <nav class="nav-links">
                 <a href="#hero">Início</a>
+                <a href="#showcase">Plataforma</a>
                 <a href="#features">Funcionalidades</a>
                 <a href="#how-it-works">Fluxo</a>
                 <a href="#pricing">Planos</a>
             </nav>
-            <div class="nav-actions">
-                <a class="ghost-btn"
-                    href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es."
-                    target="_blank">Falar com especialista</a>
-                <a id="open-modal" class="solid-btn"
-                    href="https://api.whatsapp.com/send?phone=5541995491030&text=Ol%C3%A1.%20vim%20pelo%20site.%0A%0AGostaria%20de%20mais%20informa%C3%A7%C3%B5es."
-                    target="_blank">Quero testar agora</a>
-            </div>
         </div>
     </header>
 
@@ -98,8 +91,8 @@
 
     <main>
         <section id="hero" class="hero">
-            <div class="container hero-grid">
-                <div class="hero-copy">
+            <div class="container">
+                <div class="hero-copy hero-copy-centered">
                     <div class="pill">WhatsApp para cobrança · Pronto para uso</div>
                     <h1>Converse, negocie e recupere dívidas em uma única experiência.</h1>
                     <p>Automatize cadência, centralize conversas e veja a performance em tempo real. Sem filas, sem
@@ -127,18 +120,193 @@
                         </div>
                     </div>
                 </div>
-                <div class="hero-panel">
-                    <div class="panel-header">
-                        <span class="dot green"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot red"></span>
-                        <span>Fluxo visual</span>
+            </div>
+        </section>
+
+        <!-- PRODUCT SHOWCASE / SCREENSHOT CAROUSEL -->
+        <section id="showcase" class="product-showcase">
+            <div class="container">
+                <div class="showcase-header">
+                    <span class="eyebrow">Veja na Prática</span>
+                    <h2>Conheça a plataforma por dentro</h2>
+                    <p class="lead">Uma interface moderna e intuitiva projetada para maximizar sua produtividade em
+                        cobrança.</p>
+                </div>
+
+                <div class="screenshot-carousel">
+                    <div class="carousel-viewport">
+                        <div class="carousel-stage" id="carousel-stage">
+                            <!-- Slide 1: Contatos -->
+                            <div class="screenshot-slide" data-slide="0">
+                                <div class="screenshot-frame">
+                                    <div class="browser-bar">
+                                        <div class="browser-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <span class="browser-title">CobZap - Gestão de Contatos</span>
+                                    </div>
+                                    <div class="screenshot-image-wrapper">
+                                        <img src="screenshots/screen-contatos.png"
+                                            alt="Tela de Gestão de Contatos do CobZap" loading="lazy">
+                                    </div>
+                                    <div class="slide-info">
+                                        <div class="slide-info-content">
+                                            <h3>Gestão de Contatos</h3>
+                                            <p>Organize todos os seus devedores com filtros por carteira, etiquetas e
+                                                ações em massa.</p>
+                                        </div>
+                                        <span class="slide-badge"><i data-lucide="users"></i> CRM Integrado</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2: Disparo em Massa -->
+                            <div class="screenshot-slide" data-slide="1">
+                                <div class="screenshot-frame">
+                                    <div class="browser-bar">
+                                        <div class="browser-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <span class="browser-title">CobZap - Disparo em Massa</span>
+                                    </div>
+                                    <div class="screenshot-image-wrapper">
+                                        <img src="screenshots/screen-disparo.png"
+                                            alt="Tela de Disparo em Massa do CobZap" loading="lazy">
+                                    </div>
+                                    <div class="slide-info">
+                                        <div class="slide-info-content">
+                                            <h3>Disparo em Massa</h3>
+                                            <p>Envie mensagens personalizadas com templates e variáveis para milhares de
+                                                contatos.</p>
+                                        </div>
+                                        <span class="slide-badge"><i data-lucide="send"></i> Automação</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 3: Chat/Atendimento -->
+                            <div class="screenshot-slide" data-slide="2">
+                                <div class="screenshot-frame">
+                                    <div class="browser-bar">
+                                        <div class="browser-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <span class="browser-title">CobZap - Central de Atendimento</span>
+                                    </div>
+                                    <div class="screenshot-image-wrapper">
+                                        <img src="screenshots/screen-chat.png"
+                                            alt="Tela de Chat e Atendimento do CobZap" loading="lazy">
+                                    </div>
+                                    <div class="slide-info">
+                                        <div class="slide-info-content">
+                                            <h3>Central de Atendimento</h3>
+                                            <p>Gerencie tickets, converse em tempo real e acompanhe todo o histórico de
+                                                interações.</p>
+                                        </div>
+                                        <span class="slide-badge"><i data-lucide="message-square"></i>
+                                            Multi-agente</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 4: Dashboard de Métricas -->
+                            <div class="screenshot-slide" data-slide="3">
+                                <div class="screenshot-frame">
+                                    <div class="browser-bar">
+                                        <div class="browser-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <span class="browser-title">CobZap - Dashboard de Métricas</span>
+                                    </div>
+                                    <div class="screenshot-image-wrapper">
+                                        <img src="screenshots/screen-dashboard.png"
+                                            alt="Dashboard de Métricas do CobZap" loading="lazy">
+                                    </div>
+                                    <div class="slide-info">
+                                        <div class="slide-info-content">
+                                            <h3>Dashboard de Métricas</h3>
+                                            <p>Acompanhe KPIs, desempenho da equipe e evolução dos atendimentos em tempo
+                                                real.</p>
+                                        </div>
+                                        <span class="slide-badge"><i data-lucide="trending-up"></i> Analytics</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 5: Painel de Controle -->
+                            <div class="screenshot-slide" data-slide="4">
+                                <div class="screenshot-frame">
+                                    <div class="browser-bar">
+                                        <div class="browser-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <span class="browser-title">CobZap - Painel de Controle</span>
+                                    </div>
+                                    <div class="screenshot-image-wrapper">
+                                        <img src="screenshots/screen-painel.png" alt="Painel de Controle do CobZap"
+                                            loading="lazy">
+                                    </div>
+                                    <div class="slide-info">
+                                        <div class="slide-info-content">
+                                            <h3>Painel de Controle</h3>
+                                            <p>Visualize dados por fila, usuário, status e canal com gráficos
+                                                interativos.</p>
+                                        </div>
+                                        <span class="slide-badge"><i data-lucide="pie-chart"></i> Relatórios</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <img src="dashboard.png" alt="Dashboard CobZap" loading="lazy">
-                    <div class="panel-footer">
-                        <div class="badge success">Sem bloqueios</div>
-                        <div class="badge outline">Mensagens ilimitadas</div>
+
+                    <!-- Carousel Navigation (Setas nas laterais) -->
+                    <div class="carousel-nav">
+                        <button class="carousel-nav-btn prev-btn" id="carousel-prev" aria-label="Slide anterior">
+                            <i data-lucide="chevron-left"></i>
+                        </button>
+                        <button class="carousel-nav-btn next-btn" id="carousel-next" aria-label="Próximo slide">
+                            <i data-lucide="chevron-right"></i>
+                        </button>
                     </div>
+                </div>
+
+                <!-- Carousel Indicators (Embaixo do carrossel) -->
+                <div class="carousel-indicators" id="carousel-indicators">
+                    <button class="carousel-indicator active" data-index="0" aria-label="Ir para slide 1"></button>
+                    <button class="carousel-indicator" data-index="1" aria-label="Ir para slide 2"></button>
+                    <button class="carousel-indicator" data-index="2" aria-label="Ir para slide 3"></button>
+                    <button class="carousel-indicator" data-index="3" aria-label="Ir para slide 4"></button>
+                    <button class="carousel-indicator" data-index="4" aria-label="Ir para slide 5"></button>
+                </div>
+
+                <!-- Autoplay Indicator -->
+                <div class="autoplay-indicator">
+                    <button class="play-pause-btn" id="autoplay-toggle" aria-label="Pausar/Reproduzir">
+                        <i data-lucide="pause" id="autoplay-icon"></i>
+                    </button>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" id="progress-fill"></div>
+                    </div>
+                    <span>Automático</span>
+                </div>
+
+                <!-- Feature Tags -->
+                <div class="feature-tags">
+                    <div class="feature-tag"><i data-lucide="shield-check"></i> WhatsApp Oficial</div>
+                    <div class="feature-tag"><i data-lucide="zap"></i> Mensagens Ilimitadas</div>
+                    <div class="feature-tag"><i data-lucide="users"></i> Multi-atendentes</div>
+                    <div class="feature-tag"><i data-lucide="bar-chart-3"></i> Relatórios Avançados</div>
+                    <div class="feature-tag"><i data-lucide="webhook"></i> API & Webhooks</div>
                 </div>
             </div>
         </section>
@@ -159,11 +327,6 @@
                     </div>
                 </div>
                 <div class="card-grid">
-                    <article class="card">
-                        <div class="card-icon"><i data-lucide="bot"></i></div>
-                        <h3>Cadências inteligentes</h3>
-                        <p>Envios automáticos baseados em tempo, resposta e valor devido.</p>
-                    </article>
                     <article class="card">
                         <div class="card-icon"><i data-lucide="message-circle"></i></div>
                         <h3>Templates prontos</h3>
@@ -412,8 +575,10 @@
                         <p>Sim, ative o teste de 7 dias e rode tudo pelo navegador.</p>
                     </article>
                     <article class="faq-item">
-                        <h3>Muitas mensagens geram bloqueio?</h3>
-                        <p>Usamos cadência e métricas para reduzir spam e manter sua operação ativa.</p>
+                        <h3>Muitas mensagens geram bloqueios?</h3>
+                        <p>Bloqueios podem ocorrer mesmo com a API Oficial, mas com estratégias adequadas de envio e
+                            boas práticas, a chance de bloqueio reduz significativamente. Entregamos tudo configurado
+                            para minimizar riscos.</p>
                     </article>
                 </div>
             </div>
