@@ -1,6 +1,5 @@
 const GATE_KEY = 'cobchat-gate';
 const SESSION_GATE_KEY = 'cobchat-gate-session';
-// Webhook para receber os dados em JSON
 const API_URL = 'https://n8n.zcob.com.br/webhook/salvar_lead';
 const PLANOS = [
     { nome: 'Essencial', faixa: [1, 4], preco: 97 },
@@ -88,7 +87,6 @@ const submitLead = async (data, submitBtn) => {
         try { result = rawText ? JSON.parse(rawText) : {}; } catch (e) { result = {}; }
 
         if (!response.ok) throw new Error(result.message || rawText || `Falha ao enviar (HTTP ${response.status}).`);
-        // Webhooks podem não retornar success=true; se chegou 2xx, consideramos OK.
         if (result.success === false) throw new Error(result.message || rawText || 'Erro ao salvar.');
 
         setFeedback('Dados enviados com sucesso!', 'success');
@@ -109,8 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     attachSmoothScroll();
 
+    // Usuário que já enviou o form não vê o gate novamente em nenhuma sessão
+    const hasSubmitted = !!localStorage.getItem(GATE_KEY);
     const hasSeenGateThisSession = sessionStorage.getItem(SESSION_GATE_KEY) === '1';
-    if (!hasSeenGateThisSession) {
+
+    if (!hasSubmitted && !hasSeenGateThisSession) {
         toggleGate(true);
         sessionStorage.setItem(SESSION_GATE_KEY, '1');
     } else {
@@ -128,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const telefoneDigits = form.telefone.value.replace(/\D/g, '').slice(0, 11);
         const data = {
             nome: form.nome.value.trim(),
-            telefone: telefoneDigits, // envia apenas números
+            telefone: telefoneDigits,
             telefone_formatado: formatPhone(form.telefone.value),
             email: form.email.value.trim(),
             cargo: form.cargo.value,
@@ -146,7 +147,43 @@ document.addEventListener('DOMContentLoaded', () => {
         submitLead(data, submitBtn || form.elements[form.elements.length - 1]);
     });
 
-    // pricing carousel
+    // ============================================
+    // HAMBURGER MENU
+    // ============================================
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger?.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Fechar menu ao clicar em um link
+    navLinks?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            hamburger?.classList.remove('open');
+            hamburger?.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', (e) => {
+        if (
+            navLinks?.classList.contains('open') &&
+            !navLinks.contains(e.target) &&
+            !hamburger?.contains(e.target)
+        ) {
+            navLinks.classList.remove('open');
+            hamburger?.classList.remove('open');
+            hamburger?.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // ============================================
+    // PRICING CAROUSEL
+    // ============================================
     const track = document.getElementById('pricing-track');
     const prevBtn = document.querySelector('.pricing-carousel .prev');
     const nextBtn = document.querySelector('.pricing-carousel .next');
@@ -154,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollAmount = () => {
         if (!track) return 0;
         const card = track.querySelector('.pricing-card');
-        return card ? card.getBoundingClientRect().width + 12 : 0;
+        return card ? card.getBoundingClientRect().width + 16 : 0;
     };
 
     nextBtn?.addEventListener('click', () => {
@@ -167,7 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (amount && track) track.scrollBy({ left: -amount, behavior: 'smooth' });
     });
 
-    // simulador de valores
+    // ============================================
+    // SIMULADOR DE VALORES
+    // ============================================
     const inputs = {
         usuarios: document.getElementById('sim-usuarios'),
         web: document.getElementById('sim-web'),
@@ -214,6 +253,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     calcular();
 
+    // ============================================
+    // FAQ ACCORDION
+    // ============================================
+    document.querySelectorAll('.faq-question').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+
+            // Fechar todos os abertos
+            document.querySelectorAll('.faq-item.open').forEach((openItem) => {
+                openItem.classList.remove('open');
+                openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            });
+
+            // Abrir o clicado se estava fechado
+            if (!isOpen) {
+                item.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
     // Atalho Esc para fechar o gate
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
@@ -241,116 +302,73 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentSlide = 0;
         let isAutoPlaying = true;
         let autoplayInterval = null;
-        let progressInterval = null;
-        const autoplayDuration = 5000; // 5 segundos por slide
-        const progressStep = 50; // Atualiza a cada 50ms
+        const autoplayDuration = 5000;
 
-        // Atualizar posição do carrossel
         const updateCarousel = () => {
             stage.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-            // Atualizar indicadores
             indicators.forEach((indicator, index) => {
                 indicator.classList.toggle('active', index === currentSlide);
             });
-
-            // Atualizar estado dos botões
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === totalSlides - 1;
         };
 
-        // Ir para slide específico
         const goToSlide = (index) => {
             currentSlide = Math.max(0, Math.min(index, totalSlides - 1));
             updateCarousel();
             resetProgress();
         };
 
-        // Próximo slide
         const nextSlide = () => {
-            if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-            } else {
-                currentSlide = 0; // Loop para o início
-            }
+            currentSlide = currentSlide < totalSlides - 1 ? currentSlide + 1 : 0;
             updateCarousel();
             resetProgress();
         };
 
-        // Slide anterior
         const prevSlide = () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-            } else {
-                currentSlide = totalSlides - 1; // Loop para o final
-            }
+            currentSlide = currentSlide > 0 ? currentSlide - 1 : totalSlides - 1;
             updateCarousel();
             resetProgress();
         };
 
-        // Resetar barra de progresso
         const resetProgress = () => {
-            if (progressFill) {
-                progressFill.style.transition = 'none';
-                progressFill.style.width = '0%';
-
-                // Força um reflow para reiniciar a animação
-                void progressFill.offsetWidth;
-
-                if (isAutoPlaying) {
-                    progressFill.style.transition = `width ${autoplayDuration}ms linear`;
-                    progressFill.style.width = '100%';
-                }
+            if (!progressFill) return;
+            progressFill.style.transition = 'none';
+            progressFill.style.width = '0%';
+            void progressFill.offsetWidth;
+            if (isAutoPlaying) {
+                progressFill.style.transition = `width ${autoplayDuration}ms linear`;
+                progressFill.style.width = '100%';
             }
         };
 
-        // Iniciar autoplay
         const startAutoplay = () => {
             stopAutoplay();
             isAutoPlaying = true;
-
             if (autoplayIcon) {
                 autoplayIcon.setAttribute('data-lucide', 'pause');
                 lucide.createIcons();
             }
-
             resetProgress();
-
-            autoplayInterval = setInterval(() => {
-                nextSlide();
-            }, autoplayDuration);
+            autoplayInterval = setInterval(nextSlide, autoplayDuration);
         };
 
-        // Parar autoplay
         const stopAutoplay = () => {
             isAutoPlaying = false;
-
             if (autoplayIcon) {
                 autoplayIcon.setAttribute('data-lucide', 'play');
                 lucide.createIcons();
             }
-
             if (progressFill) {
                 progressFill.style.transition = 'none';
                 progressFill.style.width = '0%';
             }
-
             if (autoplayInterval) {
                 clearInterval(autoplayInterval);
                 autoplayInterval = null;
             }
         };
 
-        // Toggle autoplay
-        const toggleAutoplay = () => {
-            if (isAutoPlaying) {
-                stopAutoplay();
-            } else {
-                startAutoplay();
-            }
-        };
-
-        // Event Listeners
         prevBtn?.addEventListener('click', () => {
             prevSlide();
             if (isAutoPlaying) startAutoplay();
@@ -368,77 +386,50 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        autoplayToggle?.addEventListener('click', toggleAutoplay);
+        autoplayToggle?.addEventListener('click', () => {
+            if (isAutoPlaying) { stopAutoplay(); } else { startAutoplay(); }
+        });
 
-        // Touch/Swipe support
+        // Touch/swipe support
         let touchStartX = 0;
-        let touchEndX = 0;
-
         stage.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
 
         stage.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
-
-        const handleSwipe = () => {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) { nextSlide(); } else { prevSlide(); }
                 if (isAutoPlaying) startAutoplay();
             }
-        };
+        }, { passive: true });
 
-        // Pausar autoplay quando mouse está sobre o carrossel
+        // Pausar ao passar mouse sobre o carrossel
         const carouselContainer = document.querySelector('.screenshot-carousel');
+        let wasAutoplaying = false;
+
         carouselContainer?.addEventListener('mouseenter', () => {
-            if (isAutoPlaying) {
-                stopAutoplay();
-                isAutoPlaying = true; // Manter flag para retomar
-            }
+            wasAutoplaying = isAutoPlaying;
+            if (isAutoPlaying) stopAutoplay();
         });
 
         carouselContainer?.addEventListener('mouseleave', () => {
-            if (isAutoPlaying) {
-                startAutoplay();
-            }
+            if (wasAutoplaying) startAutoplay();
         });
 
-        // Keyboard navigation
+        // Navegação por teclado quando seção visível
         document.addEventListener('keydown', (e) => {
             const showcase = document.getElementById('showcase');
             const rect = showcase?.getBoundingClientRect();
-
-            // Só navegar se a seção estiver visível
             if (rect && rect.top < window.innerHeight && rect.bottom > 0) {
-                if (e.key === 'ArrowLeft') {
-                    prevSlide();
-                    if (isAutoPlaying) startAutoplay();
-                } else if (e.key === 'ArrowRight') {
-                    nextSlide();
-                    if (isAutoPlaying) startAutoplay();
-                }
+                if (e.key === 'ArrowLeft') { prevSlide(); if (isAutoPlaying) startAutoplay(); }
+                else if (e.key === 'ArrowRight') { nextSlide(); if (isAutoPlaying) startAutoplay(); }
             }
         });
 
-        // Inicializar
         updateCarousel();
         startAutoplay();
 
-        return {
-            goToSlide,
-            nextSlide,
-            prevSlide,
-            startAutoplay,
-            stopAutoplay
-        };
+        return { goToSlide, nextSlide, prevSlide, startAutoplay, stopAutoplay };
     })();
 });
