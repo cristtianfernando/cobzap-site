@@ -184,6 +184,68 @@
     }
     </script>
 
+    <!-- Structured Data: HowTo — ranqueamento de featured snippet e AI Overview -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Como automatizar cobranças pelo WhatsApp com o CobZap",
+      "description": "Passo a passo para configurar um sistema de cobrança automatizada via WhatsApp usando o CobZap, com API Oficial da Meta ou WhatsApp Web.",
+      "totalTime": "PT3D",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "BRL",
+        "value": "47"
+      },
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Escolha a modalidade de conexão",
+          "text": "Decida entre a API Oficial da Meta (risco zero de bloqueio, ideal para grandes operações) ou a conexão via WhatsApp Web por QR Code (sem tarifa por mensagem, ideal para pequenas e médias carteiras)."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Conecte seu número ao CobZap",
+          "text": "Conecte seu número WhatsApp ao CobZap via QR Code ou siga o processo de homologação da Meta para a API Oficial. O onboarding completo é feito pela equipe CobZap em até 3 dias úteis."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Importe sua carteira de devedores",
+          "text": "Importe seus contatos via planilha Excel/CSV ou integre diretamente via API REST com seu ERP ou CRM. Cada contato pode ter variáveis como nome, CPF, valor da dívida e link de pagamento."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Configure a régua de cobrança",
+          "text": "Crie a sequência de mensagens automáticas: lembretes pré-vencimento, notificação de vencimento, cobranças pós-vencimento e propostas de acordo. Defina templates, horários e intervalos entre os disparos."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Ative e monitore os resultados",
+          "text": "Inicie os disparos e acompanhe no dashboard: taxa de entrega, resposta, acordos fechados e evolução da inadimplência por carteira ou operador, em tempo real."
+        }
+      ]
+    }
+    </script>
+
+    <!-- Sitemap e meta técnicas -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="CobZap">
+    <meta name="geo.region" content="BR">
+    <meta name="geo.country" content="Brazil">
+    <meta name="language" content="Portuguese">
+    <meta name="revisit-after" content="7 days">
+
+    <!-- DNS prefetch para CDNs externos -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -196,7 +258,7 @@
         <div class="container">
             <div class="brand">
                 <a href="index.html" aria-label="Voltar para a página inicial">
-                    <img src="logo.png" alt="CobZap Logo" style="height: 50px;">
+                    <img src="logo.png" alt="CobZap — Sistema de Cobrança via WhatsApp" width="76" height="50" style="height: 50px; width: auto;">
                 </a>
             </div>
             <nav class="nav-links" id="nav-links" aria-label="Menu principal">
@@ -301,6 +363,60 @@
                         <div>
                             <span class="stat-number">24/7</span>
                             <span class="stat-label">Operação ativa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE CONTEÚDO DENSO: base para featured snippets e AI Overview -->
+        <section id="sobre-cobzap" class="sobre-section" aria-label="O que é o CobZap">
+            <div class="container">
+                <div class="sobre-grid">
+                    <div class="sobre-text">
+                        <h2>O que é o CobZap?</h2>
+                        <p>
+                            CobZap é um <strong>sistema de cobrança via WhatsApp</strong> desenvolvido para empresas brasileiras
+                            que precisam automatizar a recuperação de crédito e a gestão de inadimplência. A plataforma conecta
+                            diretamente a <strong>API Oficial da Meta (WhatsApp Business Cloud API)</strong> ou a integração via
+                            WhatsApp Web por QR Code, permitindo que assessorias de cobrança, escritórios, call centers,
+                            operações de telemarketing e empresas de qualquer segmento cobrem seus clientes de forma automática,
+                            escalável e em conformidade com a LGPD.
+                        </p>
+                        <p>
+                            Com o CobZap é possível criar <strong>réguas de cobrança automatizadas</strong> — sequências
+                            programadas de mensagens enviadas em datas e horários estratégicos —, realizar
+                            <strong>disparos em massa personalizados</strong> com variáveis dinâmicas (nome, valor da dívida,
+                            link de pagamento PIX ou boleto) e centralizar o atendimento de negociação em uma
+                            <strong>central multi-agente</strong>, tudo em um único painel. O sistema gera relatórios de
+                            performance em tempo real: taxas de resposta, acordos fechados e inadimplência resolvida por
+                            operador ou carteira.
+                        </p>
+                        <p>
+                            Diferente de ferramentas genéricas de WhatsApp, o CobZap foi
+                            <strong>projetado especificamente para operações de cobrança</strong>: suporta gestão de múltiplas
+                            carteiras por credor (ideal para assessorias), filas inteligentes de atendimento (ideal para call
+                            centers) e integração via API REST e Webhooks com qualquer ERP, CRM ou sistema de gestão financeira.
+                            Os planos vão de <strong>R$47 a R$97 por usuário/mês</strong>, com escalonamento progressivo
+                            conforme o tamanho da operação.
+                        </p>
+                    </div>
+                    <div class="sobre-metricas">
+                        <div class="sobre-metrica">
+                            <strong>+30%</strong>
+                            <span>de recuperação média em carteiras usando régua automatizada</span>
+                        </div>
+                        <div class="sobre-metrica">
+                            <strong>75%</strong>
+                            <span>menos tempo por operador vs. cobrança manual</span>
+                        </div>
+                        <div class="sobre-metrica">
+                            <strong>24/7</strong>
+                            <span>operação ativa sem equipe disponível o tempo todo</span>
+                        </div>
+                        <div class="sobre-metrica">
+                            <strong>1–3 dias</strong>
+                            <span>tempo de implementação com onboarding completo</span>
                         </div>
                     </div>
                 </div>
@@ -1067,7 +1183,7 @@
             <div>
                 <div class="brand">
                     <a href="index.html" aria-label="Voltar para a página inicial">
-                        <img src="logo.png" alt="CobZap Logo" style="height: 80px;">
+                        <img src="logo.png" alt="CobZap — Sistema de Cobrança via WhatsApp" width="122" height="80" style="height: 80px; width: auto;">
                     </a>
                 </div>
                 <p class="muted">Sistema de WhatsApp inteligente para cobrança.</p>

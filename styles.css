@@ -724,6 +724,90 @@ body {
 }
 
 /* ============================================
+   SEÇÃO SOBRE COBZAP (conteúdo denso para SEO/AI)
+   ============================================ */
+.sobre-section {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 56px;
+    align-items: start;
+}
+
+.sobre-text h2 {
+    font-size: clamp(1.6rem, 2.5vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.sobre-text p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.sobre-text p:last-child {
+    margin-bottom: 0;
+}
+
+.sobre-text strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.sobre-metricas {
+    display: grid;
+    gap: 16px;
+}
+
+.sobre-metrica {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    display: grid;
+    gap: 4px;
+}
+
+.sobre-metrica strong {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.sobre-metrica span {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+    .sobre-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .sobre-metricas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .sobre-metricas {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
    PRODUCT SHOWCASE / SCREENSHOT CAROUSEL
    ============================================ */
 .product-showcase {
