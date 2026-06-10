@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://cobzap.com/sitemap.xml
+Sitemap: https://www.cobzap.com/sitemap.xml
