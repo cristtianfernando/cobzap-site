@@ -1,10 +1,12 @@
 <?php
-// Configurações do banco de dados
-$host = 'cloud.bonattoadvogados.com.br';
-$port = '5675';
-$dbname = 'bd_cobzap';
-$username = 'bonatto';
-$password = 'KY&pAhYe4f';
+// Carregar variáveis de ambiente do .env
+require_once __DIR__ . '/env_loader.php';
+
+$host = $_ENV['DB_HOST'] ?? 'localhost';
+$port = $_ENV['DB_PORT'] ?? '3306';
+$dbname = $_ENV['DB_DATABASE'] ?? '';
+$username = $_ENV['DB_USERNAME'] ?? '';
+$password = $_ENV['DB_PASSWORD'] ?? '';
 
 // Conectar ao banco de dados
 $mysqli = new mysqli($host, $username, $password, $dbname, $port);
@@ -22,13 +24,12 @@ $sql = "CREATE TABLE IF NOT EXISTS leads_captacao (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     whatsapp VARCHAR(20) NOT NULL,
-    empresa VARCHAR(100) NOT NULL,
     cargo VARCHAR(100) NOT NULL,
-    tamanho_equipe VARCHAR(20) NOT NULL,
+    tamanho_time VARCHAR(20) NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ip_usuario VARCHAR(45),
     user_agent TEXT,
-    origem VARCHAR(100) DEFAULT 'site_cobchat'
+    origem VARCHAR(100) DEFAULT 'site_cobzap'
 )";
 
 // Executar o SQL

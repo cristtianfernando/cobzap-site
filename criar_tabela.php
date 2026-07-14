@@ -1,10 +1,12 @@
 <?php
-// Configurações do banco de dados
-$host = 'cloud.bonattoadvogados.com.br';
-$port = '5675';
-$dbname = 'bd_cobzap';
-$username = 'bonatto';
-$password = 'KY&pAhYe4f';
+// Carregar variáveis de ambiente do .env
+require_once __DIR__ . '/env_loader.php';
+
+$host = $_ENV['DB_HOST'] ?? 'localhost';
+$port = $_ENV['DB_PORT'] ?? '3306';
+$dbname = $_ENV['DB_DATABASE'] ?? '';
+$username = $_ENV['DB_USERNAME'] ?? '';
+$password = $_ENV['DB_PASSWORD'] ?? '';
 
 try {
     // Conectar ao banco de dados
@@ -25,24 +27,28 @@ try {
         nome VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL,
         whatsapp VARCHAR(20) NOT NULL,
-        empresa VARCHAR(100) NOT NULL,
         cargo VARCHAR(100) NOT NULL,
-        tamanho_equipe VARCHAR(20) NOT NULL,
+        tamanho_time VARCHAR(20) NOT NULL,
         data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         ip_usuario VARCHAR(45),
         user_agent TEXT,
-        origem VARCHAR(100) DEFAULT 'site_cobchat'
+        origem VARCHAR(100) DEFAULT 'site_cobzap'
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
     
     // Executar o SQL
     $pdo->exec($sql);
-    echo "<p>Tabela 'leads_captacao' criada com sucesso!</p>";
+    echo "<p>Tabela 'leads_captacao' criada/verificada com sucesso!</p>";
     
-    // Criar índices
-    $pdo->exec("CREATE INDEX IF NOT EXISTS idx_email ON leads_captacao(email)");
-    $pdo->exec("CREATE INDEX IF NOT EXISTS idx_whatsapp ON leads_captacao(whatsapp)");
-    $pdo->exec("CREATE INDEX IF NOT EXISTS idx_data_cadastro ON leads_captacao(data_cadastro)");
-    echo "<p>Índices criados com sucesso!</p>";
+    // Criar índices (com tratamento para o caso de já existirem em versões mais antigas do MySQL)
+    try {
+        @$pdo->exec("CREATE INDEX idx_email ON leads_captacao(email)");
+        @$pdo->exec("CREATE INDEX idx_whatsapp ON leads_captacao(whatsapp)");
+        @$pdo->exec("CREATE INDEX idx_data_cadastro ON leads_captacao(data_cadastro)");
+        echo "<p>Índices criados ou já existentes!</p>";
+    } catch (PDOException $e) {
+        // Ignora erros de índice duplicado
+    }
+
     
     // Listar tabelas existentes
     $stmt = $pdo->query("SHOW TABLES");
