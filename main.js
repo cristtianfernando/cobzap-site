@@ -1,6 +1,6 @@
 const GATE_KEY = 'cobchat-gate';
 const SESSION_GATE_KEY = 'cobchat-gate-session';
-const API_URL = 'salvar_lead.php';
+const API_URL = '/api/salvar_lead';
 const PLANOS = [
     { nome: 'Essencial', faixa: [1, 4], preco: 97 },
     { nome: 'Padrão', faixa: [5, 10], preco: 87 },
