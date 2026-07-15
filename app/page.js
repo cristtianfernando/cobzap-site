@@ -51,7 +51,7 @@ const screenshots = [
     index: 0,
     title: 'Gestão de Contatos',
     desc: 'Organize todos os seus devedores com filtros por carteira, etiquetas e ações em massa.',
-    image: 'screenshots/screen-contatos.png',
+    image: '/screenshots/screen-contatos.png',
     badge: 'CRM Integrado',
     icon: <Users size={16} />
   },
@@ -59,7 +59,7 @@ const screenshots = [
     index: 1,
     title: 'Disparo em Massa',
     desc: 'Envie mensagens personalizadas com templates e variáveis para milhares de contatos.',
-    image: 'screenshots/screen-disparo.png',
+    image: '/screenshots/screen-disparo.png',
     badge: 'Automação',
     icon: <Send size={16} />
   },
@@ -67,7 +67,7 @@ const screenshots = [
     index: 2,
     title: 'Central de Atendimento',
     desc: 'Gerencie tickets, converse em tempo real e acompanhe todo o histórico de interações.',
-    image: 'screenshots/screen-chat.png',
+    image: '/screenshots/screen-chat.png',
     badge: 'Multi-agente',
     icon: <MessageSquare size={16} />
   },
@@ -75,7 +75,7 @@ const screenshots = [
     index: 3,
     title: 'Dashboard de Métricas',
     desc: 'Acompanhe KPIs, desempenho da equipe e evolução dos atendimentos em tempo real.',
-    image: 'screenshots/screen-dashboard.png',
+    image: '/screenshots/screen-dashboard.png',
     badge: 'Analytics',
     icon: <TrendingUp size={16} />
   },
@@ -83,7 +83,7 @@ const screenshots = [
     index: 4,
     title: 'Painel de Controle',
     desc: 'Visualize dados por fila, usuário, status e canal com gráficos interativos.',
-    image: 'screenshots/screen-painel.png',
+    image: '/screenshots/screen-painel.png',
     badge: 'Relatórios',
     icon: <PieChart size={16} />
   }
