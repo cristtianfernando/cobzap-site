@@ -58,16 +58,17 @@ module.exports = async function handler(req, res) {
     });
 
     const query = `
-      INSERT INTO leads_captacao (nome, email, whatsapp, cargo, tamanho_time, ip_usuario, user_agent, origem)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO leads_captacao (nome, email, whatsapp, empresa, cargo, tamanho_equipe, ip_usuario, user_agent, origem)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const [result] = await connection.execute(query, [
       nome,
       email,
       whatsapp,
+      '', // Empresa (campo ausente no formulário)
       cargo,
-      tamanho_time,
+      tamanho_time, // Mapeado para tamanho_equipe da tabela existente
       ip_usuario,
       user_agent,
       origem
