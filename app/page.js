@@ -35,6 +35,7 @@ import {
   Instagram,
   Facebook
 } from 'lucide-react';
+import Script from 'next/script';
 
 const PLANOS = [
   { nome: 'Essencial', faixa: [1, 4], preco: 97 },
@@ -425,6 +426,9 @@ export default function Home() {
 
   return (
     <>
+      {/* Widget de chat (balão no canto inferior direito); /chat tem a versão em tela cheia */}
+      <Script src="/webchat.js" strategy="lazyOnload" />
+
       {/* HEADER NAVBAR */}
       <header className="navbar">
         <div className="container">
