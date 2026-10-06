@@ -665,13 +665,17 @@ button.card {
     padding: 16px;
     z-index: 60;
     backdrop-filter: blur(4px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
 .gate-overlay.open {
     display: flex;
 }
 
+/* margin:auto centraliza quando o card cabe; quando não cabe, alinha ao topo e o overlay rola (align-items:center cortava o topo) */
 .gate-card {
+    margin: auto;
     width: min(780px, 100%);
     background: var(--panel);
     border: 1px solid var(--border);
@@ -1718,7 +1722,7 @@ button.card {
     }
 
     .api-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 32px;
     }
 
@@ -1786,7 +1790,7 @@ button.card {
     }
 
     .hero-stats {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 8px;
     }
 
@@ -1922,5 +1926,49 @@ button.card {
         font-size: 0.875rem;
         padding: 0 16px 14px;
         padding-top: 12px;
+    }
+
+    /* A tabela tem largura mínima (~412px): compacta e, se ainda não couber, rola dentro do card. */
+    .api-table-wrapper {
+        padding: 16px;
+        overflow-x: auto;
+    }
+
+    .api-comparison-table {
+        font-size: 0.8rem;
+    }
+
+    .api-comparison-table th,
+    .api-comparison-table td {
+        padding: 8px 6px;
+    }
+
+    .api-comparison-table th {
+        font-size: 0.65rem;
+        letter-spacing: 0.3px;
+    }
+
+    /* inline-block abre uma quebra após a "/" de "Mensagens/Segundo" (a palavra ficava com 151px) */
+    .api-brk {
+        display: inline-block;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-stats > div {
+        padding: 12px 8px;
+    }
+
+    .api-table-wrapper {
+        padding: 12px;
+    }
+
+    .api-comparison-table {
+        font-size: 0.75rem;
+    }
+
+    .api-comparison-table th,
+    .api-comparison-table td {
+        padding: 8px 4px;
     }
 }

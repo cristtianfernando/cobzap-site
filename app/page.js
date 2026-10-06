@@ -427,7 +427,7 @@ export default function Home() {
   return (
     <>
       {/* Widget de chat (balão no canto inferior direito); /chat tem a versão em tela cheia */}
-      <Script src="/webchat.js" strategy="lazyOnload" />
+      <Script src="/webchat-widget-ivai.js" strategy="lazyOnload" />
 
       {/* HEADER NAVBAR */}
       <header className="navbar">
@@ -847,7 +847,7 @@ export default function Home() {
                       <td>Sim</td>
                     </tr>
                     <tr>
-                      <td><strong>Mensagens/Segundo</strong></td>
+                      <td><strong>Mensagens/<span className="api-brk">Segundo</span></strong></td>
                       <td>Ilimitadas (Alta vazão)</td>
                       <td>Limitadas (Cadenciadas)</td>
                     </tr>
