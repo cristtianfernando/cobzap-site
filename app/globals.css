@@ -673,6 +673,15 @@ button.card {
     display: flex;
 }
 
+/* Classe no <html> (page.js) enquanto o gate está aberto: a página atrás não rola e o balão do chat some. */
+html.gate-open body {
+    overflow: hidden;
+}
+
+html.gate-open #channel-chat-widget {
+    display: none !important;
+}
+
 /* margin:auto centraliza quando o card cabe; quando não cabe, alinha ao topo e o overlay rola (align-items:center cortava o topo) */
 .gate-card {
     margin: auto;
@@ -1790,7 +1799,7 @@ button.card {
     }
 
     .hero-stats {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 8px;
     }
 
@@ -1954,11 +1963,14 @@ button.card {
     }
 }
 
-@media (max-width: 360px) {
+/* Com padding 16px a palavra "implementação" (87px) não cabe no conteúdo da célula abaixo de ~412px */
+@media (max-width: 420px) {
     .hero-stats > div {
         padding: 12px 8px;
     }
+}
 
+@media (max-width: 360px) {
     .api-table-wrapper {
         padding: 12px;
     }

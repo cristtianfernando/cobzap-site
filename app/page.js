@@ -245,6 +245,19 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // --- Gate aberto: trava o scroll da página e esconde o balão do chat (CSS em globals.css) ---
+  useEffect(() => {
+    if (!showGate) return;
+    const root = document.documentElement;
+    // gutter só quando existe barra de rolagem clássica: evita o card saltar ao escondê-la
+    if (window.innerWidth > root.clientWidth) root.style.scrollbarGutter = 'stable';
+    root.classList.add('gate-open');
+    return () => {
+      root.classList.remove('gate-open');
+      root.style.scrollbarGutter = '';
+    };
+  }, [showGate]);
+
   // --- Validação e Envio do Gate ---
   const handleGateSubmit = async (e) => {
     e.preventDefault();
