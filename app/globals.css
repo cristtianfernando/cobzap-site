@@ -2167,3 +2167,145 @@ html body #channel-chat-button:focus-visible {
     outline: 3px solid #fff;
     outline-offset: 2px;
 }
+
+/* ============================================
+   RESPONSIVIDADE — LOTE 2 (itens de design)
+   ============================================ */
+
+/* Lote 2 - #8: navbar e hero compactos em altura baixa (paisagem de celular / janela baixa), para o hero e os CTAs
+   aparecerem na primeira tela. Acima de 480px de altura nada muda. */
+@media (max-height: 480px) {
+    .navbar .container {
+        padding: 6px 0;
+    }
+
+    .navbar .brand img {
+        display: block;
+        max-height: 40px;
+    }
+
+    .hero {
+        padding: 16px 0 24px;
+    }
+
+    .hero .pill {
+        padding: 4px 10px;
+        font-size: 0.75rem;
+    }
+
+    .hero-copy h1 {
+        margin: 8px 0 10px;
+    }
+
+    .hero-copy-centered h1 {
+        line-height: 1.1;
+        text-wrap: balance;
+    }
+
+    .hero-copy-centered p {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .hero .cta-row {
+        flex-direction: row;
+        margin: 12px 0;
+    }
+
+    .hero-copy-centered .hero-stats {
+        margin-top: 20px;
+    }
+
+    #nav-links.open {
+        max-height: calc(100vh - 56px);
+        max-height: calc(100dvh - 56px);
+    }
+
+    html {
+        scroll-padding-top: 68px;
+    }
+}
+
+/* O h1 do hero só cresce até 1.9rem acima de 640px de largura; até 640px vale o 1.5rem do @media mobile. */
+@media (max-height: 480px) and (min-width: 641px) {
+    .hero-copy-centered h1 {
+        font-size: clamp(1.5rem, 4.2vw, 1.9rem);
+    }
+}
+
+/* Lote 2 - #10: linhas de texto com mais de 90 caracteres (leads centrados e parágrafo da tabela da API).
+   text-wrap: balance evita a palavra sozinha na última linha. */
+.section-head .lead {
+    max-width: 62ch;
+    margin-inline: auto;
+    text-wrap: balance;
+}
+
+.api-table-wrapper p {
+    max-width: 62ch;
+}
+
+/* Lote 2 - #11: linhas órfãs de cards. Cada regra vale só na faixa de largura em que o grid tem a linha 3+1 / 2+1. */
+@media (min-width: 892px) and (max-width: 1195px) {
+    .segmentos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 687px) and (max-width: 921px) {
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+    .card-grid > :nth-child(3):last-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc((100% - 24px) / 2);
+    }
+}
+
+@media (min-width: 635px) and (max-width: 965px) {
+    .seguranca-grid > :nth-child(3):last-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc((100% - 24px) / 2);
+    }
+}
+
+/* Lote 2 - #12: hero-stats com as 3 colunas iguais de 316px a 359px (a palavra "implementação" continua inteira dentro
+   do conteúdo da célula). Abaixo de 316px volta ao piso min-content (colunas desiguais, sem estourar). */
+@media (max-width: 359px) {
+    .hero-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .hero-stats > div {
+        padding-inline: 4px;
+    }
+}
+
+@media (max-width: 329px) {
+    .hero-stats > div {
+        padding-inline: 2px;
+    }
+}
+
+@media (max-width: 315px) {
+    .hero-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Lote 2 - #13: ultrawide. Acima de 2200px o conteúdo (preso a 1200px) e a fonte crescem; 1366-1920 não mudam. */
+@media (min-width: 2200px) {
+    html {
+        font-size: 112.5%;
+    }
+
+    .container {
+        width: min(1400px, 92vw);
+    }
+}
