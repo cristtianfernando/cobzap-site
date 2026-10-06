@@ -1984,3 +1984,13 @@ html.gate-open #channel-chat-widget {
         padding: 8px 4px;
     }
 }
+
+/* Chat do widget aberto em viewport baixo: o container (340x520 fixo a 90px do fundo, definido no widget) saía pelo topo
+   e escondia o header. Limita a altura para caber (20px de folga no topo). Especificidade maior que a do widget, que injeta
+   o <style> depois do site; sem !important para os overrides do /chat continuarem mandando. Abaixo de 481px o widget já é tela cheia. */
+@media (min-width: 481px) {
+    html body #channel-chat-container {
+        height: min(520px, calc(100vh - 110px));
+        height: min(520px, calc(100dvh - 110px));
+    }
+}
