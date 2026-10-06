@@ -1994,3 +1994,157 @@ html.gate-open #channel-chat-widget {
         height: min(520px, calc(100dvh - 110px));
     }
 }
+
+/* ============================================
+   RESPONSIVIDADE — LOTE 1 (auditoria 15A)
+   ============================================ */
+
+/* Responsividade #1: overflow horizontal em larguras <= ~310px. Os grids auto-fit de minmax(280px) passam a aceitar
+   colunas menores que a tela; no hero, abaixo de 331px, menos padding/gap deixam o "implementação" caber sem transbordar. */
+.sim-grid,
+.seguranca-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+
+@media (max-width: 330px) {
+    .hero-stats {
+        gap: 6px;
+    }
+
+    .hero-stats > div {
+        padding: 12px 4px;
+    }
+}
+
+/* Responsividade #2: o campo do chat (flex item com min-width:auto) empurrava o botão enviar para fora da tela a 280px. */
+html body #channel-chat-input-area .ivai-input-wrap {
+    min-width: 0;
+}
+
+/* Responsividade #3: o menu aberto (absolute) passava da tela em alturas baixas e não rolava (navbar 75-83px). */
+@media (max-width: 900px) {
+    #nav-links.open {
+        max-height: calc(100vh - 84px);
+        max-height: calc(100dvh - 84px);
+        overflow-y: auto;
+    }
+}
+
+/* Responsividade #4: o balão do chat (fixo, 20px/20px) cobria Termos/Privacidade ao fim da página; só há sobreposição
+   abaixo de ~1360px (acima, o rodapé fica centrado em 1200px). */
+@media (max-width: 1365px) {
+    .footer-bottom {
+        padding-bottom: 100px;
+    }
+}
+
+/* Responsividade #5: a navbar sticky (75-83px) cobria o título da seção ao navegar por âncora. */
+html {
+    scroll-padding-top: 96px;
+}
+
+/* Responsividade #6: texto abaixo de 12px (0.75rem). */
+.showcase-header .eyebrow,
+.autoplay-indicator {
+    font-size: 0.75rem;
+}
+
+@media (max-width: 640px), (min-width: 901px) {
+    .feature-tag {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .browser-title,
+    .api-comparison-table th {
+        font-size: 0.75rem;
+    }
+}
+
+html body #channel-chat-container .channel-meta {
+    font-size: 12px;
+}
+
+/* Responsividade #7: alvos de toque >= 40px, só em telas de toque (desktop com mouse não muda). */
+@media (pointer: coarse) {
+    html body #channel-chat-container #channel-chat-close,
+    html body #channel-chat-container #channel-chat-clear,
+    html body #channel-chat-container #channel-chat-attach {
+        width: 44px;
+        height: 44px;
+    }
+
+    html body #channel-chat-input-area .ivai-input-wrap,
+    html body #channel-chat-input-area #channel-chat-input {
+        min-height: 44px;
+    }
+
+    .carousel-nav-btn,
+    .autoplay-indicator .play-pause-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* Indicadores: caixa de 40px com o ponto de 8px desenhado só no content-box (visual do ponto preservado). */
+    .carousel-indicators {
+        gap: 0;
+    }
+
+    .carousel-indicator,
+    .carousel-indicator.active {
+        width: 40px;
+        height: 40px;
+        padding: 16px;
+        border: 0;
+        background-clip: content-box;
+        box-shadow: none;
+    }
+
+    .carousel-indicator::before {
+        inset: 12px;
+    }
+
+    .carousel-indicator.active {
+        filter: drop-shadow(0 0 10px rgba(124, 242, 156, 0.5));
+    }
+
+    .footer h4 ~ a,
+    .legal a {
+        padding: 8px 0;
+        margin: 0;
+    }
+
+    .social-links a {
+        padding: 11px;
+        margin: 0;
+    }
+}
+
+/* Responsividade #9: chat da home em altura baixa (paisagem de celular) vira tela cheia como no <=480px e no /chat;
+   o balão (z-index 9999) some enquanto o chat está aberto, senão cobriria o botão enviar. */
+@media (min-width: 481px) and (max-height: 520px) {
+    html body #channel-chat-container {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    html body #channel-chat-header {
+        border-radius: 0;
+    }
+}
+
+@media (min-width: 481px) and (max-height: 520px) {
+    html body:has(#channel-chat-container.show) #channel-chat-widget {
+        display: none;
+    }
+}
+
+/* Responsividade #14 (N1): campos do gate vazavam do card abaixo de ~300px (minmax(240px) fixo). */
+.form-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+}
