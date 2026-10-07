@@ -2309,3 +2309,16 @@ html body #channel-chat-button:focus-visible {
         width: min(1400px, 92vw);
     }
 }
+
+/* Responsividade #15: campo de texto do chat com 16px (o widget usa 15px e o Safari do iPhone da zoom automatico ao focar campos com menos de 16px). */
+html body #channel-chat-input-area #channel-chat-input {
+    font-size: 16px;
+}
+
+/* Responsividade #16: campos do gate e do simulador com 16px (heranca de 13,33px do navegador; o Safari do iPhone da zoom ao focar campos com menos de 16px). */
+.form-grid input,
+.form-grid select,
+.sim-grid input,
+.sim-grid select {
+    font-size: 16px;
+}
