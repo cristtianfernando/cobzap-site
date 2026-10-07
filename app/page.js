@@ -35,7 +35,6 @@ import {
   Instagram,
   Facebook
 } from 'lucide-react';
-import Script from 'next/script';
 
 const PLANOS = [
   { nome: 'Essencial', faixa: [1, 4], preco: 97 },
@@ -245,7 +244,7 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // --- Gate aberto: trava o scroll da página e esconde o balão do chat (CSS em globals.css) ---
+  // --- Gate aberto: trava o scroll da página (CSS em globals.css) ---
   useEffect(() => {
     if (!showGate) return;
     const root = document.documentElement;
@@ -439,9 +438,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Widget de chat (balão no canto inferior direito); /chat tem a versão em tela cheia */}
-      <Script src="/webchat-widget-ivai.js" strategy="lazyOnload" />
-
       {/* HEADER NAVBAR */}
       <header className="navbar">
         <div className="container">

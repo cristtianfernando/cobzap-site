@@ -2,7 +2,7 @@
 
 import Script from 'next/script';
 
-// Página isolada (/chat): só o chat do WebChat, em tela cheia. O CSS é do componente,
+// Página isolada (/chat-ivai): só o chat do WebChat, em tela cheia. O CSS é do componente,
 // então só existe enquanto a página está montada. !important porque o widget injeta o CSS dele depois.
 const css = `
 html, body { margin: 0; height: 100%; background: #f7fafd; }
