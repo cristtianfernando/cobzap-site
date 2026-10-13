@@ -20,7 +20,16 @@ export default function ChatPage() {
       <Script
         src="/webchat-widget-bonatto.js"
         strategy="afterInteractive"
-        onReady={() => document.getElementById('channel-chat-button')?.click()}
+        onReady={() => {
+          // Só abre depois que o widget terminou o 1º registro (ele preenche #channel-chat-session).
+          // Clicar antes dispara um 2º registro simultâneo e o servidor cria contato duplicado.
+          let done = false;
+          const open = () => { if (!done) { done = true; document.getElementById('channel-chat-button')?.click(); } };
+          const s = document.getElementById('channel-chat-session');
+          if (!s || s.textContent) return open();
+          new MutationObserver((_, o) => { o.disconnect(); open(); }).observe(s, { childList: true });
+          setTimeout(open, 5000); // se o registro falhar, abre mesmo assim
+        }}
       />
     </>
   );
