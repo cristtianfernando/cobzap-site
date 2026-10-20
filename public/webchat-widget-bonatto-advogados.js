@@ -1,6 +1,9 @@
 
 // Widget de Chat CHANNEL
 (function() {
+    const AVATAR = '/bonatto-logo.png';
+    const BADGE_SVG = '<svg class="ivai-verified" viewBox="0 0 24 24" width="16" height="16" aria-label="Conta verificada"><path fill="#25D366" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3-2.6-1.9 1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.6-6"/></svg>';
+
     // Cria o elemento do widget
     const widgetHTML = `
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
