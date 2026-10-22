@@ -2258,3 +2258,22 @@ html body #channel-chat-input-area #channel-chat-input {
 .sim-grid select {
     font-size: 16px;
 }
+
+/* Aviso fixo dos chats (/chat-ivai, /chat-bonatto, /chat-bonatto-advogados): colado no topo da area de mensagens, nao rola junto com elas. */
+html body #channel-chat-messages::before {
+    content: "Mantenha esta tela aberta para não perder o atendimento. É\a0por aqui que você recebe as respostas.";
+    display: block;
+    position: sticky;
+    top: -12px; /* o sticky conta a partir do padding do widget (12px); sem isso sobra uma faixa onde as mensagens aparecem acima do aviso */
+    z-index: 2; /* .channel-message e position:relative e passaria por cima */
+    margin: -12px -10px 12px; /* faixa de ponta a ponta, anulando o padding 12px 10px do widget */
+    padding: 8px 12px;
+    background: #ffe9a8; /* mais forte que o aviso informativo do widget (#fdf4c5) */
+    border-bottom: 1px solid #ecd081;
+    color: #5c4a00;
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    text-wrap: balance;
+}
