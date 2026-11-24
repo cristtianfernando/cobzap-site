@@ -469,7 +469,12 @@
     }
 
     // Função para renderizar o histórico completo
+    let lastHistorySig = '';
     function renderHistory(messages) {
+        const sig = messages.map(m => m.id + ':' + m.ack + ':' + (m.mediaUrl || '')).join('|');
+        const pending = messagesDiv.querySelector('[id^="msg-temp-"]');
+        if (sig === lastHistorySig && !pending) return;
+        lastHistorySig = sig;
         messagesDiv.innerHTML = '';
         messages.forEach(msg => {
             appendMessage(
@@ -666,6 +671,7 @@
 
             } catch (error) {
                 LOGGER_ENABLED && console.error('[WebChat] Erro ao enviar mensagem:', error);
+                updateMessageAck(tempId, -1);
             }
         }
     });
@@ -690,53 +696,63 @@
         fileInput.value = '';
     });
 
-    // WebSocket para receber mensagens e ack em tempo real
+    // WebSocket para receber mensagens e ack em tempo real.
+    // wsGen invalida conexões antigas (ex.: depois de "Nova sessão"), para o onclose delas não reconectar.
+    let wsGen = 0;
+    let historyTimer = null;
+    const HISTORY_INTERVAL = 8000; // fallback: busca o histórico mesmo se o WebSocket cair
+
+    function startHistoryPolling() {
+        if (historyTimer) return;
+        historyTimer = setInterval(() => {
+            if (document.visibilityState === 'visible' && webchatId) loadMessageHistory();
+        }, HISTORY_INTERVAL);
+    }
+
     function connectWebSocket() {
         if (!webchatId || !token) return;
-        
+        const gen = ++wsGen;
         let pingInterval;
-        let historyInterval;
         let reconnectAttempts = 0;
-        const MAX_RECONNECT_ATTEMPTS = 5;
-        const RECONNECT_DELAY = 5000;
         const PING_INTERVAL = 30000;
-        const HISTORY_INTERVAL = 60000;
 
-        function connect() {
+        startHistoryPolling();
+
+        async function connect() {
+            if (gen !== wsGen) return;
+            try { await ensureFreshToken(); } catch (e) { /* tenta mesmo assim */ }
+            if (gen !== wsGen) return;
             ws = new WebSocket(`wss://api7.cobzap.com/wss?from=${webchatId}&token=${token}`);
-            
-            ws.onopen = () => {
+            const sock = ws;
+
+            sock.onopen = () => {
                 LOGGER_ENABLED && console.log('[WebChat] WebSocket conectado!');
                 reconnectAttempts = 0;
-                
+                clearInterval(pingInterval);
                 pingInterval = setInterval(() => {
-                    if (ws.readyState === WebSocket.OPEN) {
-                        ws.send(JSON.stringify({ type: 'ping' }));
-                    }
+                    if (sock.readyState === WebSocket.OPEN) sock.send(JSON.stringify({ type: 'ping' }));
                 }, PING_INTERVAL);
-
-                historyInterval = setInterval(async () => {
-                    if (ws.readyState === WebSocket.OPEN) {
-                        await loadMessageHistory();
-                    }
-                }, HISTORY_INTERVAL);
+                // Recupera o que chegou enquanto estava desconectado
+                loadMessageHistory();
             };
 
-            ws.onmessage = (event) => {
+            sock.onmessage = (event) => {
                 try {
                     const data = JSON.parse(event.data);
                     if (data.type === 'webhook' && data.payload && data.payload.message) {
                         const msg = data.payload.message;
-                        appendMessage(
-                            msg.body,
-                            'channel-received',
-                            formatTime(msg.createdAt),
-                            msg.ack,
-                            msg.id,
-                            msg.mediaType,
-                            msg.mediaUrl,
-                            msg.quotedMsg
-                        );
+                        if (!(msg.id && document.getElementById('msg-' + msg.id))) {
+                            appendMessage(
+                                msg.body,
+                                'channel-received',
+                                formatTime(msg.createdAt),
+                                msg.ack,
+                                msg.id,
+                                msg.mediaType,
+                                msg.mediaUrl,
+                                msg.quotedMsg
+                            );
+                        }
                         if (msg.mediaType) {
                             loadMessageHistory();
                         }
@@ -769,33 +785,40 @@
                 }
             };
 
-            ws.onerror = (error) => {
+            sock.onerror = (error) => {
                 LOGGER_ENABLED && console.error('[WebChat] Erro na conexão WebSocket:', error);
             };
 
-            ws.onclose = () => {
+            sock.onclose = () => {
                 LOGGER_ENABLED && console.log('[WebChat] Conexão WebSocket fechada');
                 clearInterval(pingInterval);
-                clearInterval(historyInterval);
-                
-                if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-                    reconnectAttempts++;
-                    LOGGER_ENABLED && console.log(`[WebChat] Tentando reconectar (tentativa ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`);
-                    setTimeout(connect, RECONNECT_DELAY);
-                } else {
-                    LOGGER_ENABLED && console.error('[WebChat] Número máximo de tentativas de reconexão atingido');
-                }
+                if (gen !== wsGen) return;
+                // Reconecta sempre, com espera crescente (2s, 4s, 8s... até 30s)
+                reconnectAttempts++;
+                const delay = Math.min(30000, 1000 * Math.pow(2, reconnectAttempts));
+                setTimeout(connect, delay);
             };
         }
 
         connect();
     }
 
+    // Ao voltar para a aba ou a internet voltar, reconecta na hora e atualiza o histórico
+    function wakeUp() {
+        if (!chatLoaded || !webchatId) return;
+        if (!ws || ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING) connectWebSocket();
+        loadMessageHistory();
+    }
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') wakeUp(); });
+    window.addEventListener('online', wakeUp);
+
     // Função para limpar a sessão
     async function clearSession() {
         if (confirm('Tem certeza que deseja limpar a sessão e começar uma nova conversa?')) {
             messagesDiv.innerHTML = '';
+            lastHistorySig = '';
             sessionStorage.removeItem('channelWebchatId');
+            wsGen++;
             if (ws) {
                 ws.close();
             }
